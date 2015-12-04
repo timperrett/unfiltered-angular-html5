@@ -27,6 +27,8 @@ object Angular extends cycle.Plan with cycle.SynchronousExecution with ServerErr
     case GET(Path(Seg("ui" :: path))) =>
       responseStreamer("ui/"+path.mkString("/"))
 
+    // WARNING: make sure that this handler is the absolutle last
+    // in the chain, otherwise it will gobble up every request.
     case _ =>
       responseStreamer("ui/index.html")
   }
